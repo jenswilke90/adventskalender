@@ -44,25 +44,22 @@
       text-align: center;
     }
 
-    .eyebrow {
-      margin: 0 0 10px;
-      color: #e7c984;
-      font: 700 .76rem/1.3 system-ui, sans-serif;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-    }
-
     h1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .18em;
       margin: 0;
       font-size: clamp(2.4rem, 7vw, 4.7rem);
       font-weight: 400;
       letter-spacing: -.045em;
     }
 
-    .intro {
-      margin: 14px auto 0;
-      color: #e5eee7;
-      font: 1rem/1.65 system-ui, sans-serif;
+    .title-icon {
+      flex: 0 0 auto;
+      font-size: .72em;
+      letter-spacing: 0;
+      line-height: 1;
     }
 
     .divider {
@@ -70,6 +67,36 @@
       height: 1px;
       margin: 27px auto 31px;
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .title-wrap {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+    }
+
+    .heading-snowflake {
+      position: absolute;
+      z-index: 1;
+      color: #e6f4ff;
+      font: 1.15rem/1 system-ui, sans-serif;
+      pointer-events: none;
+      text-shadow: 0 0 8px rgba(230, 244, 255, .9), 0 0 15px rgba(230, 244, 255, .6);
+      animation: title-snowfall 2.3s ease-in-out infinite;
+    }
+
+    .heading-snowflake:nth-of-type(1) { top: -8px; left: 8%; }
+    .heading-snowflake:nth-of-type(2) { top: 45%; left: -3%; animation-delay: -1.2s; }
+    .heading-snowflake:nth-of-type(3) { top: -12px; right: 12%; animation-delay: -2s; }
+    .heading-snowflake:nth-of-type(4) { top: 55%; right: -4%; animation-delay: -.6s; }
+    .heading-snowflake:nth-of-type(5) { top: -14px; left: 28%; animation-delay: -.9s; }
+    .heading-snowflake:nth-of-type(6) { bottom: -12px; left: 39%; animation-delay: -1.8s; }
+    .heading-snowflake:nth-of-type(7) { top: -15px; right: 29%; animation-delay: -1.4s; }
+    .heading-snowflake:nth-of-type(8) { bottom: -10px; right: 38%; animation-delay: -.3s; }
+
+    @keyframes title-snowfall {
+      0%, 100% { opacity: .75; transform: translateY(-10px) rotate(0deg); }
+      50% { opacity: 1; transform: translateY(14px) rotate(90deg); }
     }
 
     .calendar {
@@ -174,16 +201,10 @@
       transition: transform .18s ease;
     }
 
-    .door--ornament .door-icon::before {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      width: 10px;
-      height: 7px;
-      border-radius: 2px 2px 0 0;
-      background: var(--gold);
-      content: "";
-      transform: translateX(-50%);
+    .door-ornament {
+      width: 3.8rem;
+      height: 4.1rem;
+      overflow: visible;
     }
 
     .door-number {
@@ -202,13 +223,6 @@
       box-shadow: 0 2px 5px rgba(36, 44, 35, .2);
       font: 700 1rem/1 system-ui, sans-serif;
       transform: translate(-50%, -50%);
-    }
-
-    .door--ornament .door-number {
-      border-color: rgba(255, 255, 255, .8);
-      color: white;
-      background: rgba(126, 35, 40, .42);
-      box-shadow: 0 1px 4px rgba(60, 16, 20, .45);
     }
 
     .door:not(:disabled):hover .door-icon { transform: translateY(-3px) scale(1.08); }
@@ -264,14 +278,21 @@
 
     @media (max-width: 600px) {
       .page { padding-top: 32px; }
+      h1 { font-size: clamp(1.5rem, 7vw, 2.4rem); }
       .calendar { border-radius: 18px; }
       .doors { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
       .door { min-height: 72px; }
       .door-icon { font-size: 3.1rem; }
+      .door-ornament { width: 3.1rem; height: 3.4rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+      }
     }
   </style>
 </head>
@@ -288,11 +309,28 @@
         <path d="M5 27V12a7 7 0 1 1 14 0v1" fill="none" stroke="#fffaf0" stroke-width="8" stroke-linecap="round"></path>
         <path d="M5 27V12a7 7 0 1 1 14 0v1" fill="none" stroke="url(#candy-cane-stripes)" stroke-width="6" stroke-linecap="round"></path>
       </symbol>
+      <symbol id="christmas-ornament" viewBox="0 0 64 72">
+        <path d="M28 15V9a4 4 0 0 1 8 0v6" fill="none" stroke="#171717" stroke-width="3.5" stroke-linecap="round"></path>
+        <rect x="25" y="12" width="14" height="9" rx="2" fill="#d7ad60" stroke="#171717" stroke-width="3"></rect>
+        <circle cx="32" cy="38" r="25" fill="#c83d48" stroke="#171717" stroke-width="3.5"></circle>
+      </symbol>
     </svg>
     <header>
-      <p class="eyebrow">Eine kleine Überraschung für jeden Tag</p>
-      <h1>Unser Adventskalender</h1>
-      <p class="intro">24 Türchen voller Weihnachtsfreude</p>
+      <div class="title-wrap">
+        <h1>
+          <span class="title-icon" aria-hidden="true">🎅</span>
+          <span>Adventskalender 2026</span>
+          <span class="title-icon" aria-hidden="true">🎄</span>
+        </h1>
+        <span class="heading-snowflake" aria-hidden="true">❄</span>
+        <span class="heading-snowflake" aria-hidden="true">❄</span>
+        <span class="heading-snowflake" aria-hidden="true">❄</span>
+        <span class="heading-snowflake" aria-hidden="true">❄</span>
+        <span class="heading-snowflake" aria-hidden="true">❄</span>
+        <span class="heading-snowflake" aria-hidden="true">❄</span>
+        <span class="heading-snowflake" aria-hidden="true">❄</span>
+        <span class="heading-snowflake" aria-hidden="true">❄</span>
+      </div>
       <div class="divider" aria-hidden="true"></div>
     </header>
 
@@ -325,7 +363,7 @@
   <script>
     const calendarYear = 2026;
     const symbolSeed = 2026;
-    const doorSymbols = ["⭐", "🎄", "🔴", "❄️"];
+    const doorSymbols = ["⭐", "🎄", "ornament", "❄️", "🕯️"];
     function createSeededRandom(seed) {
       let state = seed >>> 0;
       return function () {
@@ -384,7 +422,18 @@
         const icon = document.createElement("span");
         icon.className = "door-icon";
         icon.setAttribute("aria-hidden", "true");
-        icon.textContent = symbol;
+        if (symbol === "ornament") {
+          door.classList.add("door--ornament");
+          const ornament = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+          ornament.classList.add("door-ornament");
+          ornament.setAttribute("viewBox", "0 0 64 72");
+          const ornamentShape = document.createElementNS("http://www.w3.org/2000/svg", "use");
+          ornamentShape.setAttribute("href", "#christmas-ornament");
+          ornament.append(ornamentShape);
+          icon.append(ornament);
+        } else {
+          icon.textContent = symbol;
+        }
 
         const number = document.createElement("span");
         number.className = "door-number";
