@@ -428,7 +428,7 @@
     unlockForm.addEventListener("submit", event => event.preventDefault());
 
     function isUnlocked(day, now) {
-      if (unlockInput.value === "Weihnachten") return true;
+      if (unlockInput.value === "unlockall") return true;
       if (now.getFullYear() > calendarYear) return true;
       if (now.getFullYear() < calendarYear) return false;
       return now.getMonth() === 11 && day <= now.getDate();

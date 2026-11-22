@@ -62,6 +62,24 @@
       line-height: 1;
     }
 
+    .title-icon-link {
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      color: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .18s ease;
+    }
+
+    .title-icon-link:hover { transform: scale(1.12); }
+
+    .title-icon-link:focus-visible {
+      border-radius: 4px;
+      outline: 3px solid #e4b85e;
+      outline-offset: 4px;
+    }
+
     .divider {
       width: 130px;
       height: 1px;
@@ -317,10 +335,12 @@
     </svg>
     <header>
       <div class="title-wrap">
-        <h1>
+        <h1 aria-label="Adventskalender 2026">
           <span class="title-icon" aria-hidden="true">🎅</span>
           <span>Adventskalender 2026</span>
-          <span class="title-icon" aria-hidden="true">🎄</span>
+          <a class="title-icon-link" href="index2.html" aria-label="Adventskalender mit zusätzlicher Freischaltung öffnen">
+            <span class="title-icon" aria-hidden="true">🎄</span>
+          </a>
         </h1>
         <span class="heading-snowflake" aria-hidden="true">❄</span>
         <span class="heading-snowflake" aria-hidden="true">❄</span>
