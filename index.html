@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183c35">
+  <title>Unser Adventskalender 2026</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --pine: #183c35;
+      --pine-light: #28564a;
+      --cream: #fffaf0;
+      --paper: #fffdf8;
+      --berry: #a63d46;
+      --gold: #d7ad60;
+      --ink: #263832;
+      --muted: #718078;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse at 10% 12%, rgba(255,255,255,.13) 0 2px, transparent 3px),
+        radial-gradient(ellipse at 84% 24%, rgba(255,255,255,.15) 0 2px, transparent 3px),
+        linear-gradient(145deg, #173b34, #285747 54%, #173b34);
+      background-size: 80px 90px, 110px 120px, auto;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .page {
+      width: min(100% - 32px, 1040px);
+      margin: 0 auto;
+      padding: 46px 0 56px;
+    }
+
+    header {
+      color: var(--cream);
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: #e7c984;
+      font: 700 .76rem/1.3 system-ui, sans-serif;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 7vw, 4.7rem);
+      font-weight: 400;
+      letter-spacing: -.045em;
+    }
+
+    .intro {
+      margin: 14px auto 0;
+      color: #e5eee7;
+      font: 1rem/1.65 system-ui, sans-serif;
+    }
+
+    .divider {
+      width: 130px;
+      height: 1px;
+      margin: 27px auto 31px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .calendar {
+      padding: clamp(20px, 5vw, 42px);
+      border: 1px solid rgba(215, 173, 96, .55);
+      border-radius: 24px;
+      background: var(--cream);
+      box-shadow: 0 24px 70px rgba(8, 24, 19, .28);
+    }
+
+    .picker-label {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font: 700 .78rem/1.4 system-ui, sans-serif;
+      letter-spacing: .1em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .children {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .child-tab {
+      min-width: 112px;
+      padding: 11px 20px;
+      border: 1px solid #d5ddd4;
+      border-radius: 999px;
+      color: var(--pine);
+      background: transparent;
+      cursor: pointer;
+      font: 600 .95rem system-ui, sans-serif;
+      transition: color .18s ease, background .18s ease, border-color .18s ease, transform .18s ease;
+    }
+
+    .child-tab:hover { transform: translateY(-2px); }
+
+    .child-tab[aria-pressed="true"] {
+      border-color: var(--pine);
+      color: white;
+      background: var(--pine);
+    }
+
+    .calendar-heading {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin: 30px 0 17px;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--pine);
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 400;
+    }
+
+    .progress {
+      margin: 0;
+      color: var(--muted);
+      font: .85rem system-ui, sans-serif;
+    }
+
+    .doors {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .door {
+      position: relative;
+      display: grid;
+      min-height: 92px;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid #d6bd82;
+      border-radius: 12px;
+      color: var(--cream);
+      background: linear-gradient(145deg, #a8464b, #85343c);
+      box-shadow: 0 4px 0 #6f2b34, 0 7px 12px rgba(36, 44, 35, .13);
+      cursor: pointer;
+      font: 400 1.8rem Georgia, serif;
+      text-decoration: none;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .door::after {
+      position: absolute;
+      inset: 5px;
+      border: 1px solid rgba(255, 250, 240, .24);
+      border-radius: 8px;
+      content: "";
+      pointer-events: none;
+    }
+
+    .door:not(:disabled):hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 0 #6f2b34, 0 12px 17px rgba(36, 44, 35, .18);
+    }
+
+    .door:disabled {
+      border-color: #cbd4cb;
+      color: #89968c;
+      background: linear-gradient(145deg, #e1e7dc, #cdd8ce);
+      box-shadow: 0 4px 0 #b8c5bb, 0 7px 12px rgba(36, 44, 35, .08);
+      cursor: not-allowed;
+    }
+
+    .door:disabled::after { border-color: rgba(255,255,255,.5); }
+
+    .door:focus-visible, .child-tab:focus-visible {
+      outline: 3px solid #e4b85e;
+      outline-offset: 3px;
+    }
+
+    .note {
+      margin: 20px 0 0;
+      color: var(--muted);
+      font: .82rem/1.5 system-ui, sans-serif;
+      text-align: center;
+    }
+
+    footer {
+      margin-top: 23px;
+      color: #d4e0d7;
+      font: .78rem system-ui, sans-serif;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .page { padding-top: 32px; }
+      .calendar { border-radius: 18px; }
+      .doors { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+      .door { min-height: 72px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <p class="eyebrow">Eine kleine Überraschung für jeden Tag</p>
+      <h1>Unser Adventskalender</h1>
+      <p class="intro">24 Türchen voller Weihnachtsfreude</p>
+      <div class="divider" aria-hidden="true"></div>
+    </header>
+
+    <section class="calendar" aria-label="Adventskalender">
+      <p class="picker-label">Wähle deinen Kalender</p>
+      <nav class="children" aria-label="Kalender auswählen">
+        <button class="child-tab" type="button" data-child="Lisa" aria-pressed="true">Lisa</button>
+        <button class="child-tab" type="button" data-child="Mila" aria-pressed="false">Mila</button>
+        <button class="child-tab" type="button" data-child="Vincent" aria-pressed="false">Vincent</button>
+        <button class="child-tab" type="button" data-child="Viola" aria-pressed="false">Viola</button>
+      </nav>
+
+      <div class="calendar-heading">
+        <h2 id="calendar-title">Lisas Kalender</h2>
+        <p class="progress" id="progress" aria-live="polite"></p>
+      </div>
+      <div class="doors" id="doors" aria-label="Türchen"></div>
+      <p class="note" id="calendar-note"></p>
+    </section>
+
+    <footer>Mit Liebe gemacht für eine zauberhafte Adventszeit</footer>
+  </main>
+
+  <script>
+    const children = ["Lisa", "Mila", "Vincent", "Viola"];
+    const calendarYear = 2026;
+    const doors = document.getElementById("doors");
+    const title = document.getElementById("calendar-title");
+    const progress = document.getElementById("progress");
+    const note = document.getElementById("calendar-note");
+    const tabs = Array.from(document.querySelectorAll(".child-tab"));
+
+    function isUnlocked(day, now) {
+      if (now.getFullYear() > calendarYear) return true;
+      if (now.getFullYear() < calendarYear) return false;
+      return now.getMonth() === 11 && day <= now.getDate();
+    }
+
+    function showCalendar(child) {
+      const now = new Date();
+      title.textContent = child + "s Kalender";
+      doors.replaceChildren();
+
+      let opened = 0;
+      for (let day = 1; day <= 24; day++) {
+        const fileNumber = String(day).padStart(2, "0");
+        const unlocked = isUnlocked(day, now);
+        const door = document.createElement(unlocked ? "a" : "button");
+        door.className = "door";
+        door.textContent = String(day);
+
+        if (unlocked) {
+          door.href = encodeURI("data/" + child + "/" + fileNumber + "_" + child + ".pdf");
+          door.target = "_blank";
+          door.rel = "noopener";
+          door.setAttribute("aria-label", "Türchen " + day + " öffnen");
+          opened++;
+        } else {
+          door.type = "button";
+          door.disabled = true;
+          door.setAttribute("aria-label", "Türchen " + day + " ist noch verschlossen");
+        }
+
+        doors.append(door);
+      }
+
+      progress.textContent = opened + " von 24 Türchen geöffnet";
+      if (now.getFullYear() === calendarYear && now.getMonth() === 11) {
+        note.textContent = "Jeden Tag öffnet sich ein neues Türchen. Die PDF-Datei öffnet sich in einem neuen Tab.";
+      } else if (now.getFullYear() < calendarYear || (now.getFullYear() === calendarYear && now.getMonth() < 11)) {
+        note.textContent = "Die Türchen öffnen sich ab dem 1. Dezember " + calendarYear + ".";
+      } else {
+        note.textContent = "Alle Türchen sind geöffnet. Die PDF-Datei öffnet sich in einem neuen Tab.";
+      }
+
+      for (const tab of tabs) {
+        tab.setAttribute("aria-pressed", String(tab.dataset.child === child));
+      }
+    }
+
+    for (const tab of tabs) {
+      tab.addEventListener("click", () => showCalendar(tab.dataset.child));
+    }
+
+    showCalendar(children[0]);
+  </script>
+</body>
+</html>
