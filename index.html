@@ -97,14 +97,14 @@
     }
 
     .child-tab {
-      min-width: 112px;
-      padding: 11px 20px;
+      min-width: 118px;
+      padding: 13px 22px;
       border: 1px solid #d5ddd4;
       border-radius: 999px;
       color: var(--pine);
       background: transparent;
       cursor: pointer;
-      font: 600 .95rem system-ui, sans-serif;
+      font: 600 1rem system-ui, sans-serif;
       transition: color .18s ease, background .18s ease, border-color .18s ease, transform .18s ease;
     }
 
@@ -143,6 +143,8 @@
       grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 12px;
     }
+
+    .doors[hidden] { display: none; }
 
     .door {
       position: relative;
@@ -228,25 +230,24 @@
     <section class="calendar" aria-label="Adventskalender">
       <p class="picker-label">Wähle deinen Kalender</p>
       <nav class="children" aria-label="Kalender auswählen">
-        <button class="child-tab" type="button" data-child="Lisa" aria-pressed="true">Lisa</button>
         <button class="child-tab" type="button" data-child="Mila" aria-pressed="false">Mila</button>
-        <button class="child-tab" type="button" data-child="Vincent" aria-pressed="false">Vincent</button>
         <button class="child-tab" type="button" data-child="Viola" aria-pressed="false">Viola</button>
+        <button class="child-tab" type="button" data-child="Lisa" aria-pressed="false">Lisa</button>
+        <button class="child-tab" type="button" data-child="Vincent" aria-pressed="false">Vincent</button>
       </nav>
 
       <div class="calendar-heading">
-        <h2 id="calendar-title">Lisas Kalender</h2>
-        <p class="progress" id="progress" aria-live="polite"></p>
+        <h2 id="calendar-title">Wähle deinen Namen</h2>
+        <p class="progress" id="progress" aria-live="polite" hidden></p>
       </div>
-      <div class="doors" id="doors" aria-label="Türchen"></div>
-      <p class="note" id="calendar-note"></p>
+      <div class="doors" id="doors" aria-label="Türchen" hidden></div>
+      <p class="note" id="calendar-note" hidden></p>
     </section>
 
     <footer>Mit Liebe gemacht für eine zauberhafte Adventszeit</footer>
   </main>
 
   <script>
-    const children = ["Lisa", "Mila", "Vincent", "Viola"];
     const calendarYear = 2026;
     const doors = document.getElementById("doors");
     const title = document.getElementById("calendar-title");
@@ -263,6 +264,9 @@
     function showCalendar(child) {
       const now = new Date();
       title.textContent = child + "s Kalender";
+      doors.hidden = false;
+      progress.hidden = false;
+      note.hidden = false;
       doors.replaceChildren();
 
       let opened = 0;
@@ -306,7 +310,6 @@
       tab.addEventListener("click", () => showCalendar(tab.dataset.child));
     }
 
-    showCalendar(children[0]);
   </script>
 </body>
 </html>
