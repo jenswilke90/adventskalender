@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183c35">
+  <title>Unser Adventskalender 2026</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --pine: #183c35;
+      --pine-light: #28564a;
+      --cream: #fffaf0;
+      --paper: #fffdf8;
+      --berry: #a63d46;
+      --gold: #d7ad60;
+      --ink: #263832;
+      --muted: #718078;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse at 10% 12%, rgba(255,255,255,.13) 0 2px, transparent 3px),
+        radial-gradient(ellipse at 84% 24%, rgba(255,255,255,.15) 0 2px, transparent 3px),
+        linear-gradient(145deg, #173b34, #285747 54%, #173b34);
+      background-size: 80px 90px, 110px 120px, auto;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .page {
+      width: min(100% - 32px, 1040px);
+      margin: 0 auto;
+      padding: 46px 0 56px;
+    }
+
+    header {
+      color: var(--cream);
+      text-align: center;
+    }
+
+    h1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .18em;
+      margin: 0;
+      font-size: clamp(2.4rem, 7vw, 4.7rem);
+      font-weight: 400;
+      letter-spacing: -.045em;
+    }
+
+    .title-icon {
+      flex: 0 0 auto;
+      font-size: .72em;
+      letter-spacing: 0;
+      line-height: 1;
+    }
+
+    .divider {
+      width: 130px;
+      height: 1px;
+      margin: 27px auto 31px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .title-wrap {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+    }
+
+    .heading-snowflake {
+      position: absolute;
+      z-index: 1;
+      color: #e6f4ff;
+      font: 1.15rem/1 system-ui, sans-serif;
+      pointer-events: none;
+      text-shadow: 0 0 8px rgba(230, 244, 255, .9), 0 0 15px rgba(230, 244, 255, .6);
+      animation: title-snowfall 2.3s ease-in-out infinite;
+    }
+
+    .heading-snowflake:nth-of-type(1) { top: -8px; left: 8%; }
+    .heading-snowflake:nth-of-type(2) { top: 45%; left: -3%; animation-delay: -1.2s; }
+    .heading-snowflake:nth-of-type(3) { top: -12px; right: 12%; animation-delay: -2s; }
+    .heading-snowflake:nth-of-type(4) { top: 55%; right: -4%; animation-delay: -.6s; }
+    .heading-snowflake:nth-of-type(5) { top: -14px; left: 28%; animation-delay: -.9s; }
+    .heading-snowflake:nth-of-type(6) { bottom: -12px; left: 39%; animation-delay: -1.8s; }
+    .heading-snowflake:nth-of-type(7) { top: -15px; right: 29%; animation-delay: -1.4s; }
+    .heading-snowflake:nth-of-type(8) { bottom: -10px; right: 38%; animation-delay: -.3s; }
+
+    @keyframes title-snowfall {
+      0%, 100% { opacity: .75; transform: translateY(-10px) rotate(0deg); }
+      50% { opacity: 1; transform: translateY(14px) rotate(90deg); }
+    }
+
+    .calendar {
+      padding: clamp(20px, 5vw, 42px);
+      border: 1px solid rgba(215, 173, 96, .55);
+      border-radius: 24px;
+      background: var(--cream);
+      box-shadow: 0 24px 70px rgba(8, 24, 19, .28);
+    }
+
+    .picker-heading {
+      margin: 0 0 18px;
+      text-align: center;
+    }
+
+    .calendar-heading[hidden] { display: none; }
+
+    .children {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .child-tab {
+      min-width: 118px;
+      padding: 13px 22px;
+      border: 1px solid #d5ddd4;
+      border-radius: 999px;
+      color: var(--pine);
+      background: transparent;
+      cursor: pointer;
+      font: 600 1rem system-ui, sans-serif;
+      transition: color .18s ease, background .18s ease, border-color .18s ease, transform .18s ease;
+    }
+
+    .child-tab:hover { transform: translateY(-2px); }
+
+    .child-tab[aria-pressed="true"] {
+      border-color: var(--pine);
+      color: white;
+      background: var(--pine);
+    }
+
+    .candy-cane {
+      width: 14px;
+      height: 20px;
+      vertical-align: middle;
+    }
+
+    .calendar-heading {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin: 30px 0 17px;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--pine);
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 400;
+    }
+
+    .progress {
+      margin: 0;
+      color: var(--muted);
+      font: .85rem system-ui, sans-serif;
+    }
+
+    .doors {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .doors[hidden] { display: none; }
+
+    .door {
+      position: relative;
+      display: grid;
+      min-height: 92px;
+      place-items: center;
+      border: 0;
+      color: var(--pine);
+      background: transparent;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .door-icon, .door-number {
+      grid-area: 1 / 1;
+    }
+
+    .door-icon {
+      position: relative;
+      z-index: 1;
+      font: 3.8rem/1 system-ui, sans-serif;
+      filter: drop-shadow(0 3px 2px rgba(36, 44, 35, .18));
+      transition: transform .18s ease;
+    }
+
+    .door-ornament {
+      width: 3.8rem;
+      height: 4.1rem;
+      overflow: visible;
+    }
+
+    .door-number {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      display: grid;
+      width: 2rem;
+      height: 2rem;
+      place-items: center;
+      border: 1px solid #d6bd82;
+      border-radius: 50%;
+      color: var(--pine);
+      background: rgba(255, 250, 240, .94);
+      box-shadow: 0 2px 5px rgba(36, 44, 35, .2);
+      font: 700 1rem/1 system-ui, sans-serif;
+      transform: translate(-50%, -50%);
+    }
+
+    .door:not(:disabled):hover .door-icon { transform: translateY(-3px) scale(1.08); }
+
+    .door--locked {
+      filter: grayscale(.65);
+      opacity: .48;
+      cursor: pointer;
+    }
+
+    .door:focus-visible, .child-tab:focus-visible {
+      outline: 3px solid #e4b85e;
+      outline-offset: 3px;
+    }
+
+    .wait-dialog {
+      position: fixed;
+      width: min(340px, calc(100vw - 32px));
+      margin: auto;
+      padding: 30px 34px 26px;
+      border: 1px solid rgba(215, 173, 96, .7);
+      border-radius: 22px;
+      color: var(--pine);
+      background: var(--cream);
+      box-shadow: 0 18px 55px rgba(8, 24, 19, .3);
+      text-align: center;
+    }
+
+    .wait-dialog::backdrop { background: rgba(15, 35, 29, .45); }
+
+    .wait-fairy {
+      display: block;
+      margin-bottom: 12px;
+      font: 3rem/1 system-ui, sans-serif;
+    }
+
+    .wait-dialog p {
+      margin: 0;
+      font: 1rem/1.5 system-ui, sans-serif;
+    }
+
+    .wait-dialog-close {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      padding: 2px 6px;
+      border: 0;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      font: 1.5rem/1 system-ui, sans-serif;
+    }
+
+    .unlock-form {
+      display: flex;
+      justify-content: center;
+      margin: 22px auto 0;
+    }
+
+    .unlock-input {
+      width: min(300px, 100%);
+      padding: 11px 16px;
+      border: 1px solid #d5ddd4;
+      border-radius: 999px;
+      color: var(--pine);
+      background: var(--cream);
+      font: 1rem system-ui, sans-serif;
+      text-align: center;
+    }
+
+    .unlock-input:focus-visible {
+      outline: 3px solid #e4b85e;
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 600px) {
+      .page { padding-top: 32px; }
+      h1 { font-size: clamp(1.5rem, 7vw, 2.4rem); }
+      .calendar { border-radius: 18px; }
+      .doors { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+      .door { min-height: 72px; }
+      .door-icon { font-size: 3.1rem; }
+      .door-ornament { width: 3.1rem; height: 3.4rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+      <symbol id="candy-cane" viewBox="0 0 24 30">
+        <defs>
+          <pattern id="candy-cane-stripes" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <rect width="4" height="8" fill="#b83d46"></rect>
+            <rect x="4" width="4" height="8" fill="#fffaf0"></rect>
+          </pattern>
+        </defs>
+        <path d="M5 27V12a7 7 0 1 1 14 0v1" fill="none" stroke="#fffaf0" stroke-width="8" stroke-linecap="round"></path>
+        <path d="M5 27V12a7 7 0 1 1 14 0v1" fill="none" stroke="url(#candy-cane-stripes)" stroke-width="6" stroke-linecap="round"></path>
+      </symbol>
+      <symbol id="christmas-ornament" viewBox="0 0 64 72">
+        <path d="M28 15V9a4 4 0 0 1 8 0v6" fill="none" stroke="#171717" stroke-width="3.5" stroke-linecap="round"></path>
+        <rect x="25" y="12" width="14" height="9" rx="2" fill="#d7ad60" stroke="#171717" stroke-width="3"></rect>
+        <circle cx="32" cy="38" r="25" fill="#c83d48" stroke="#171717" stroke-width="3.5"></circle>
+      </symbol>
+    </svg>
+    <header>
+      <div class="title-wrap">
+        <h1>
+          <span class="title-icon" aria-hidden="true">🎅</span>
+          <span>Adventskalender 2026</span>
+          <span class="title-icon" aria-hidden="true">🎄</span>
+        </h1>
+        <span class="heading-snowflake" aria-hidden="true">❄</span>
+        <span class="heading-snowflake" aria-hidden="true">❄</span>
+        <span class="heading-snowflake" aria-hidden="true">❄</span>
+        <span class="heading-snowflake" aria-hidden="true">❄</span>
+        <span class="heading-snowflake" aria-hidden="true">❄</span>
+        <span class="heading-snowflake" aria-hidden="true">❄</span>
+        <span class="heading-snowflake" aria-hidden="true">❄</span>
+        <span class="heading-snowflake" aria-hidden="true">❄</span>
+      </div>
+      <div class="divider" aria-hidden="true"></div>
+    </header>
+
+    <section class="calendar" aria-label="Adventskalender">
+      <div class="picker-heading">
+        <h2>⭐ Wer bist du? ⭐</h2>
+      </div>
+      <nav class="children" aria-label="Kalender auswählen">
+        <button class="child-tab" type="button" data-child="Mila" aria-label="Mila" aria-pressed="false"><svg class="candy-cane" aria-hidden="true"><use href="#candy-cane"></use></svg> Mila <svg class="candy-cane" aria-hidden="true"><use href="#candy-cane"></use></svg></button>
+        <button class="child-tab" type="button" data-child="Viola" aria-label="Viola" aria-pressed="false"><svg class="candy-cane" aria-hidden="true"><use href="#candy-cane"></use></svg> Viola <svg class="candy-cane" aria-hidden="true"><use href="#candy-cane"></use></svg></button>
+        <button class="child-tab" type="button" data-child="Lisa" aria-label="Lisa" aria-pressed="false"><svg class="candy-cane" aria-hidden="true"><use href="#candy-cane"></use></svg> Lisa <svg class="candy-cane" aria-hidden="true"><use href="#candy-cane"></use></svg></button>
+        <button class="child-tab" type="button" data-child="Vincent" aria-label="Vincent" aria-pressed="false"><svg class="candy-cane" aria-hidden="true"><use href="#candy-cane"></use></svg> Vincent <svg class="candy-cane" aria-hidden="true"><use href="#candy-cane"></use></svg></button>
+      </nav>
+
+      <div class="calendar-heading" id="calendar-heading" hidden>
+        <h2 id="calendar-title"></h2>
+        <p class="progress" id="progress" aria-live="polite" hidden></p>
+      </div>
+      <div class="doors" id="doors" aria-label="Türchen" hidden></div>
+    </section>
+
+    <form class="unlock-form" id="unlock-form" autocomplete="off">
+      <input class="unlock-input" id="unlock-code" type="text" aria-label="Freischaltwort" placeholder="Freischaltwort" spellcheck="false">
+    </form>
+
+    <dialog class="wait-dialog" id="wait-dialog" aria-label="Nachricht der Fee">
+      <button class="wait-dialog-close" type="button" aria-label="Schließen" autofocus>&times;</button>
+      <span class="wait-fairy" aria-hidden="true">🧚</span>
+      <p>Hier musst du noch ein bisschen warten.</p>
+    </dialog>
+
+  </main>
+
+  <script>
+    const calendarYear = 2026;
+    const symbolSeed = 2026;
+    const doorSymbols = ["⭐", "🎄", "ornament", "❄️", "🕯️"];
+    function createSeededRandom(seed) {
+      let state = seed >>> 0;
+      return function () {
+        state = (state + 0x6D2B79F5) | 0;
+        let value = state;
+        value = Math.imul(value ^ (value >>> 15), value | 1);
+        value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+        return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    const random = createSeededRandom(symbolSeed);
+    const shuffledDoorSymbols = Array.from({ length: 24 }, (_, index) => doorSymbols[index % doorSymbols.length]);
+    let hasThreeInARow;
+    do {
+      for (let index = shuffledDoorSymbols.length - 1; index > 0; index--) {
+        const swapIndex = Math.floor(random() * (index + 1));
+        [shuffledDoorSymbols[index], shuffledDoorSymbols[swapIndex]] = [shuffledDoorSymbols[swapIndex], shuffledDoorSymbols[index]];
+      }
+      hasThreeInARow = shuffledDoorSymbols.some((symbol, index) =>
+        index >= 2 && symbol === shuffledDoorSymbols[index - 1] && symbol === shuffledDoorSymbols[index - 2]
+      );
+    } while (hasThreeInARow);
+
+    const doors = document.getElementById("doors");
+    const title = document.getElementById("calendar-title");
+    const calendarHeading = document.getElementById("calendar-heading");
+    const progress = document.getElementById("progress");
+    const waitDialog = document.getElementById("wait-dialog");
+    const unlockForm = document.getElementById("unlock-form");
+    const unlockInput = document.getElementById("unlock-code");
+    const tabs = Array.from(document.querySelectorAll(".child-tab"));
+    let selectedChild = null;
+
+    document.querySelector(".wait-dialog-close").addEventListener("click", () => waitDialog.close());
+    unlockForm.addEventListener("submit", event => event.preventDefault());
+
+    function isUnlocked(day, now) {
+      if (unlockInput.value === "Weihnachten") return true;
+      if (now.getFullYear() > calendarYear) return true;
+      if (now.getFullYear() < calendarYear) return false;
+      return now.getMonth() === 11 && day <= now.getDate();
+    }
+
+    function showCalendar(child) {
+      const now = new Date();
+      selectedChild = child;
+      title.textContent = child + "s Kalender";
+      calendarHeading.hidden = false;
+      doors.hidden = false;
+      progress.hidden = false;
+      doors.replaceChildren();
+
+      for (let day = 1; day <= 24; day++) {
+        const fileNumber = String(day).padStart(2, "0");
+        const unlocked = isUnlocked(day, now);
+        const symbol = shuffledDoorSymbols[day - 1];
+        const door = document.createElement(unlocked ? "a" : "button");
+        door.className = "door";
+
+        const icon = document.createElement("span");
+        icon.className = "door-icon";
+        icon.setAttribute("aria-hidden", "true");
+        if (symbol === "ornament") {
+          door.classList.add("door--ornament");
+          const ornament = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+          ornament.classList.add("door-ornament");
+          ornament.setAttribute("viewBox", "0 0 64 72");
+          const ornamentShape = document.createElementNS("http://www.w3.org/2000/svg", "use");
+          ornamentShape.setAttribute("href", "#christmas-ornament");
+          ornament.append(ornamentShape);
+          icon.append(ornament);
+        } else {
+          icon.textContent = symbol;
+        }
+
+        const number = document.createElement("span");
+        number.className = "door-number";
+        number.textContent = String(day);
+        door.append(icon, number);
+
+        if (unlocked) {
+          door.href = encodeURI("data/" + child + "/" + fileNumber + "_" + child + ".pdf");
+          door.target = "_blank";
+          door.rel = "noopener";
+          door.setAttribute("aria-label", "Türchen " + day + " öffnen");
+        } else {
+          door.type = "button";
+          door.classList.add("door--locked");
+          door.setAttribute("aria-haspopup", "dialog");
+          door.setAttribute("aria-label", "Türchen " + day + " ist noch verschlossen. Hinweis anzeigen.");
+          door.addEventListener("click", () => waitDialog.showModal());
+        }
+
+        doors.append(door);
+      }
+
+      const month = new Intl.DateTimeFormat("de-DE", { month: "long" }).format(now);
+      progress.textContent = now.getDate() + ". " + month;
+
+      for (const tab of tabs) {
+        tab.setAttribute("aria-pressed", String(tab.dataset.child === child));
+      }
+    }
+
+    for (const tab of tabs) {
+      tab.addEventListener("click", () => showCalendar(tab.dataset.child));
+    }
+
+    unlockInput.addEventListener("input", () => {
+      if (selectedChild) showCalendar(selectedChild);
+    });
+
+  </script>
+</body>
+</html>
