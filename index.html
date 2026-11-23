@@ -125,6 +125,19 @@
       box-shadow: 0 24px 70px rgba(8, 24, 19, .28);
     }
 
+    .christmas-countdown {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      margin: 0 0 18px;
+      color: var(--pine);
+      font: .85rem/1.4 system-ui, sans-serif;
+      text-align: right;
+    }
+
+    .countdown-icon { font-size: 1rem; }
+
     .picker-heading {
       margin: 0 0 18px;
       text-align: center;
@@ -355,6 +368,10 @@
     </header>
 
     <section class="calendar" aria-label="Adventskalender">
+      <p class="christmas-countdown" aria-live="polite">
+        <span class="countdown-icon" aria-hidden="true">🕒</span>
+        <span id="christmas-countdown"></span>
+      </p>
       <div class="picker-heading">
         <h2>⭐ Wer bist du? ⭐</h2>
       </div>
@@ -414,8 +431,25 @@
     const progress = document.getElementById("progress");
     const waitDialog = document.getElementById("wait-dialog");
     const tabs = Array.from(document.querySelectorAll(".child-tab"));
+    const christmasCountdown = document.getElementById("christmas-countdown");
 
     document.querySelector(".wait-dialog-close").addEventListener("click", () => waitDialog.close());
+
+    function updateChristmasCountdown(now) {
+      const christmasThisYear = new Date(now.getFullYear(), 11, 24);
+      const christmas = now.getMonth() === 11 && now.getDate() > 24
+        ? new Date(now.getFullYear() + 1, 11, 24)
+        : christmasThisYear;
+      const todayUtc = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+      const christmasUtc = Date.UTC(christmas.getFullYear(), christmas.getMonth(), christmas.getDate());
+      const daysUntilChristmas = (christmasUtc - todayUtc) / 86400000;
+
+      christmasCountdown.textContent = daysUntilChristmas === 0
+        ? "Heute ist Weihnachten ⭐"
+        : "Noch " + daysUntilChristmas + " Tage bis Weihnachten";
+    }
+
+    updateChristmasCountdown(new Date());
 
     function isUnlocked(day, now) {
       if (now.getFullYear() > calendarYear) return true;
